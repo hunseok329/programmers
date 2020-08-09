@@ -9,10 +9,7 @@ def solution(n, works):
     heapq.heapify(works)
     for i in range(n):
         p = heapq.heappop(works)
-        if p >= 0:
-            break
-        p += 1
-        heapq.heappush(works, p)
+        heapq.heappush(works, p+1)
     result = 0
     for i in works:
         result += i**2
