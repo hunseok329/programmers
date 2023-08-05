@@ -19,7 +19,7 @@ def solution(numbers, hand):
         else:
             left = distance(left_hand, keypad[num])
             right = distance(right_hand, keypad[num])
-            print(left, right)
+
             if left < right:
                 result += 'L'
                 left_hand = keypad[num]
@@ -34,3 +34,47 @@ def solution(numbers, hand):
                     result += 'L'
                     left_hand = keypad[num]
     return result
+
+
+
+
+def distance(current_loc, target_loc):
+    x = abs(current_loc[0] - target_loc[0])
+    y = abs(current_loc[1] - target_loc[1])
+    return x + y
+
+def solution(numbers, hand):
+    answer = ''
+    
+    key_dict = {1: (0, 0), 2: (0, 1), 3: (0, 2),
+               4: (1, 0), 5: (1, 1), 6: (1, 2),
+               7: (2, 0), 8: (2, 1), 9: (2, 2),
+               '*': (3, 0), 0: (3, 1), '#': (3, 2)}
+    
+    left = "*"
+    right = "#"
+    
+    for num in numbers:
+        if num in [1, 4, 7]:
+            left = num
+            answer += "L"
+        elif num in [3, 6, 9]:
+            right = num
+            answer += "R"
+        else:
+            left_distance = distance(key_dict[left], key_dict[num])
+            right_distance = distance(key_dict[right], key_dict[num])
+            if left_distance == right_distance:
+                if hand == "left":
+                    left = num
+                    answer += "L"
+                else:
+                    right = num
+                    answer += "R"
+            elif left_distance < right_distance:
+                left = num
+                answer += "L"
+            else:
+                right = num
+                answer += "R"
+    return answer
