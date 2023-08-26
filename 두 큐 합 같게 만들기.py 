@@ -1,0 +1,50 @@
+# 기존 풀이
+def solution(queue1, queue2):
+    answer = 0
+    
+    q = queue1 + queue2
+    half = sum(q) // 2
+    
+    left, right = 0, len(queue1)
+    temp = sum(q[left:right])
+    
+    while True:
+        if temp == half:
+            return answer
+        if left == right or right >= len(q):
+            return -1
+        
+        if temp > half:
+            temp -= q[left]
+            left += 1
+        elif temp < half:
+            temp += q[right]
+            right += 1
+            
+        answer += 1 
+    return answer
+
+# 풀이 갱신
+def solution(queue1, queue2):
+    answer = 0
+    
+    queue = queue1 + queue2
+    
+    half = sum(queue) // 2
+    start, end = 0, len(queue1)
+    total = sum(queue1)
+    
+    while True:
+        if total == half:
+            return answer
+        if start >= end or end >= len(queue):
+            return -1
+        
+        if total < half:
+            total += queue[end]
+            end += 1
+        else:
+            total -= queue[start]
+            start += 1
+            
+        answer += 1
